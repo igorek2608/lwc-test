@@ -11,11 +11,11 @@ import STATUS_FIELD from "@salesforce/schema/Case.Status";
 export default class CaseCombobox extends LightningElement {
     case;
 
-    get cs() {
+    get cs () {
         return this.case;
     }
 
-    @api set cs(value) {
+    @api set cs (value) {
         this.setAttribute("cs", value);
         this.case = value;
     }
@@ -32,7 +32,7 @@ export default class CaseCombobox extends LightningElement {
         if (data) {
             this.caseStatusList = data.values;
         } else {
-            /* console.log(error); */
+            console.log(error);
         }
     }
 
@@ -48,7 +48,7 @@ export default class CaseCombobox extends LightningElement {
 
         updateRecord(recordInput, prevValue)
             .then(() => {
-                this.isLoading=true;
+                this.isLoading = true;
                 this.dispatchEvent(
                     new ShowToastEvent({
                         
@@ -57,9 +57,7 @@ export default class CaseCombobox extends LightningElement {
                         variant: "success"
                     })
                 );
-
                 this.prevValue = selOption;
-                console.log(this.prevValue);
                 this.isLoading = false;
                 refreshApex(this.case);
             })

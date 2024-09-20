@@ -24,9 +24,6 @@ public with sharing class CaseFunctions {
             
         }
 
-
-
-
         if (!publishEvents.isEmpty()) {
             List<Database.SaveResult> results = EventBus.publish(publishEvents);
             for (Database.SaveResult sr : results) {
@@ -39,7 +36,7 @@ public with sharing class CaseFunctions {
                                     ' - ' +
                                     err.getMessage());
                     }
-                }       
+                }
             }
         }
 
@@ -56,7 +53,7 @@ public with sharing class CaseFunctions {
                                     ' - ' +
                                     err.getMessage());
                     }
-                }       
+                }
             }
         } 
     }

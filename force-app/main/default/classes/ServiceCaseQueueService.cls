@@ -1,5 +1,5 @@
 public inherited sharing class ServiceCaseQueueService {
-    @AuraEnabled
+    @AuraEnabled(cacheable=true)
     public static List<Case> getUserCases() {
 
         List<Group> queueIdList = [
@@ -11,7 +11,7 @@ public inherited sharing class ServiceCaseQueueService {
         List<Case> userCasesList = [
             SELECT CaseNumber, Owner_Name__c, Origin, Priority, Status, OwnerId
             FROM Case 
-            WHERE Status <> 'Closed' 
+            WHERE Status <> 'Closed' AND (OwnerId = :UserInfo.getUserId() OR (OwnerId IN :queueIdList))
             ORDER BY OwnerId, Priority ASC, CreatedDate DESC
             LIMIT 25
         ];

@@ -34,15 +34,15 @@ export default class ServiceCaseQueueFiltered extends LightningElement() {
     }
 
     handleSubscribe() {
-        const thisContext = this;
+        const that = this;
         const messageCallback = function (response) {
-            thisContext.handleEvent(response);
+            that.handleEvent(response);
         };
 
         subscribe(this.channelName, -1, messageCallback)
             .then((response) => {
-                thisContext.subscription = response;
-                thisContext.handleEvent();
+                that.subscription = response;
+                that.handleEvent();
             })
             .catch((e) => {
                 console.log(e);
@@ -60,12 +60,13 @@ export default class ServiceCaseQueueFiltered extends LightningElement() {
     handleEvent = (response) => {
         setTimeout(() => {
             const that = this;
+            const actions = response && response.data && response.data.payload && response.data.payload.Action__c ? response.data.payload.Action__c : '';
             if (
-                response.data.payload.Action__c == "Update" ||
-                response.data.payload.Action__c == "Insert" ||
-                response.data.payload.Action__c == "Delete"
+                actions === "Update" ||
+                actions === "Insert" ||
+                actions === "Delete"
             ) {
-                this.isLoading = true;
+                that.isLoading = true;
                 return that.getUserCasesAll();
             }
         }, 1000);

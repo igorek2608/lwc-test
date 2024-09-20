@@ -6,9 +6,6 @@ export default class CaseNavigation extends NavigationMixin(LightningElement) {
     @api cs;
 
     navigateToCasePage(event) {
-
-        console.log(this.cs)
-
         this[NavigationMixin.Navigate]({
             type: 'standard__recordPage',
             attributes: {
@@ -18,5 +15,4 @@ export default class CaseNavigation extends NavigationMixin(LightningElement) {
             }
         });
     }
-
 }
